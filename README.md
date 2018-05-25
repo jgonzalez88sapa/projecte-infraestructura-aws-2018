@@ -7,7 +7,7 @@ Abans de res necessitarem tenir un compte d’AWS i els credencials per accedir-
 
 Descarrega i instal·la Python 2.7 d’aquest [enllaç](https://www.python.org/downloads/).  
 Durant la instal·lació assegurat d’afegir python.exe al Path.  
-![instal·la python on windows](https://tutorial.djangogirls.org/es/python_installation/images/add_python_to_windows_path.png)
+![instal·la python on windows](https://raw.githubusercontent.com/jgonzalez88sapa/projecte-infraestructura-aws-2018/master/img/w1.png)
 
 Polsa la tecla Windows+R, escriu cmd i polsa Intro. Assegurat de tenir pip a la ultima versió amb aquesta comanda:  
 > python -m pip install --upgrade pip  
