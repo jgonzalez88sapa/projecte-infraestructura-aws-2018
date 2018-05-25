@@ -1,0 +1,371 @@
+{
+  "vpc": [
+    {
+      "CidrBlock": "192.168.0.0/16",
+      "AmazonProvidedIpv6CidrBlock": false,
+      "DryRun": false,
+      "InstanceTenancy": "default",
+      "tags": [
+        {
+          "Key": "Name",
+          "Value": "xarxa_josep"
+        },
+        {
+          "Key": "Jefe",
+          "Value": "Josep"
+        }
+      ]
+    }
+  ],
+  "subnet": [
+    {
+      "AvailabilityZone": "eu-west-1a",
+      "CidrBlock": "192.168.1.0/24",
+      "DryRun": false,
+      "XarxaPublica": true,
+      "tags": [
+        {
+          "Key": "Name",
+          "Value": "xarxa_publica"
+        },
+        {
+          "Key": "Jefe",
+          "Value": "Josep"
+        }
+      ]
+    },
+    {
+      "AvailabilityZone": "eu-west-1a",
+      "CidrBlock": "192.168.2.0/24",
+      "DryRun": false,
+      "tags": [
+        {
+          "Key": "Name",
+          "Value": "xarxa_privada"
+        },
+        {
+          "Key": "Jefe",
+          "Value": "Josep"
+        }
+      ]
+    }
+  ],
+  "internet gateway": [
+    {
+      "tags": [
+        {
+          "Key": "Name",
+          "Value": "ig_xarxa"
+        },
+        {
+          "Key": "Jefe",
+          "Value": "Josep"
+        }
+      ]
+    }
+  ],
+  "route table": [
+    {
+      "tags": [
+        {
+          "Key": "Name",
+          "Value": "rt_x_p"
+        },
+        {
+          "Key": "Jefe",
+          "Value": "Josep"
+        }
+      ]
+    }
+  ],
+  "sg": [
+    {
+      "GroupName": "BASTION",
+      "Description": "Regles pel host Bastion",
+      "DryRun": false
+    },
+    {
+      "GroupName": "APACHE",
+      "Description": "Regles pel Apache",
+      "DryRun": false
+    },
+    {
+      "GroupName": "MySQL",
+      "Description": "Regles pel MySQL",
+      "DryRun": false
+    }
+  ],
+  "IN_SG": [
+    {
+      "GroupName": "BASTION",
+      "IpProtocol": "tcp",
+      "FromPort": 22,
+      "ToPort": 22,
+      "IpRanges": [
+        {
+          "CidrIp": "0.0.0.0/0"
+        }
+      ]
+    },
+    {
+      "GroupName": "APACHE",
+      "IpProtocol": "tcp",
+      "FromPort": 80,
+      "ToPort": 80,
+      "IpRanges": [
+        {
+          "CidrIp": "0.0.0.0/0"
+        }
+      ]
+    },
+    {
+      "GroupName": "APACHE",
+      "IpProtocol": "tcp",
+      "FromPort": 443,
+      "ToPort": 443,
+      "IpRanges": [
+        {
+          "CidrIp": "0.0.0.0/0"
+        }
+      ]
+    },
+    {
+      "GroupName": "APACHE",
+      "IpProtocol": "tcp",
+      "FromPort": 22,
+      "ToPort": 22,
+      "UserIdGroupPairs": [
+        {
+          "GroupId": "BASTION"
+        }
+      ]
+    },
+    {
+      "GroupName": "MySQL",
+      "IpProtocol": "tcp",
+      "FromPort": 22,
+      "ToPort": 22,
+      "UserIdGroupPairs": [
+        {
+          "GroupId": "BASTION"
+        }
+      ]
+    },
+    {
+      "GroupName": "MySQL",
+      "IpProtocol": "tcp",
+      "FromPort": 3306,
+      "ToPort": 3306,
+      "UserIdGroupPairs": [
+        {
+          "GroupId": "APACHE"
+        }
+      ]
+    }
+  ],
+  "OUT_SG": [
+    {
+      "GroupName": "BASTION",
+      "IpProtocol": "tcp",
+      "FromPort": 22,
+      "ToPort": 22,
+      "IpRanges": [
+        {
+          "CidrIp": "192.168.0.0/16"
+        }
+      ]
+    },
+    {
+      "GroupName": "APACHE",
+      "IpProtocol": "tcp",
+      "FromPort": 3306,
+      "ToPort": 3306,
+      "IpRanges": [
+        {
+          "CidrIp": "0.0.0.0/0"
+        }
+      ]
+    },
+	{
+      "GroupName": "APACHE",
+      "IpProtocol": "tcp",
+      "FromPort": 80,
+      "ToPort": 80,
+      "IpRanges": [
+        {
+          "CidrIp": "0.0.0.0/0"
+        }
+      ]
+    },
+	{
+      "GroupName": "APACHE",
+      "IpProtocol": "tcp",
+      "FromPort": 443,
+      "ToPort": 443,
+      "IpRanges": [
+        {
+          "CidrIp": "0.0.0.0/0"
+        }
+      ]
+    }
+  ],
+  "role": [
+    {
+      "Path": "/",
+      "RoleName": "EC2admin",
+      "Description": "Permet administrar EC2 via la consola de AWS",
+      "AssumeRolePolicyDocument": "{\"Version\":\"2012-10-17\",\"Statement\":[{\"Effect\":\"Allow\",\"Action\":\"sts:AssumeRole\",\"Principal\": {\"Service\": \"ec2.amazonaws.com\"}}]}",
+      "MaxSessionDuration": 3600,
+	  "InstanceProfileName": "EC2admin"
+    }
+  ],
+  "policy": [
+    {
+      "RoleName": "EC2admin",
+      "PolicyArn": "arn:aws:iam::aws:policy/AdministratorAccess"
+    }
+  ],
+  "s3": {
+		"ACL": "public-read-write",
+		"Bucket": "backups-projecte-josep",
+		"CreateBucketConfiguration": {
+			"LocationConstraint": "eu-west-1"
+		}
+	},
+  "ec2": [
+    {
+      "ImageId": "ami-f90a4880",
+      "InstanceType": "t2.micro",
+      "KeyName": "TestKey",
+      "MaxCount": 1,
+      "MinCount": 1,
+      "NetworkInterfaces": [
+        {
+          "SubnetId": "x_pub",
+          "DeviceIndex": 0,
+          "AssociatePublicIpAddress": true,
+          "Groups": [
+            "BASTION"
+          ]
+        }
+      ],
+	  "UserData": "./scripts/bastion.txt",
+      "TagSpecifications": [
+        {
+          "ResourceType": "instance",
+          "Tags": [
+            {
+              "Key": "Name",
+              "Value": "BASTION"
+            },
+            {
+              "Key": "AMI",
+              "Value": "ami-f90a4880"
+            },
+            {
+              "Key": "Instancia",
+              "Value": "Ubuntu"
+            },
+            {
+              "Key": "Xarxa",
+              "Value": "Pública"
+            }
+          ]
+        }
+      ],
+	  "IamInstanceProfile":{
+		"Name": "EC2admin"
+		}
+    },
+    {
+      "ImageId": "ami-f90a4880",
+      "InstanceType": "t2.micro",
+      "KeyName": "TestKey",
+      "MaxCount": 1,
+      "MinCount": 1,
+      "NetworkInterfaces": [
+        {
+          "SubnetId": "x_pub",
+          "DeviceIndex": 0,
+          "AssociatePublicIpAddress": true,
+          "Groups": [
+            "APACHE"
+          ]
+        }
+      ],
+      "UserData": "./scripts/apache2.txt",
+      "TagSpecifications": [
+        {
+          "ResourceType": "instance",
+          "Tags": [
+            {
+              "Key": "Name",
+              "Value": "APACHE"
+            },
+            {
+              "Key": "AMI",
+              "Value": "ami-f90a4880"
+            },
+            {
+              "Key": "Instancia",
+              "Value": "Ubuntu"
+            },
+            {
+              "Key": "Xarxa",
+              "Value": "Pública"
+            },
+            {
+              "Key": "Serveis",
+              "Value": "Apache2"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "ImageId": "ami-f90a4880",
+      "InstanceType": "t2.micro",
+      "KeyName": "TestKey",
+      "MaxCount": 1,
+      "MinCount": 1,
+      "TagSpecifications": [
+        {
+          "ResourceType": "instance",
+          "Tags": [
+            {
+              "Key": "Name",
+              "Value": "MYSQL"
+            },
+            {
+              "Key": "AMI",
+              "Value": "ami-f90a4880"
+            },
+            {
+              "Key": "Instancia",
+              "Value": "Ubuntu"
+            },
+            {
+              "Key": "Xarxa",
+              "Value": "Privada"
+            },
+            {
+              "Key": "Serveis",
+              "Value": "MySQL"
+            }
+          ]
+        }
+      ],
+	  "UserData": "./scripts/mysql.txt",
+      "NetworkInterfaces": [
+        {
+          "SubnetId": "x_priv",
+          "DeviceIndex": 0,
+          "AssociatePublicIpAddress": false,
+          "Groups": [
+            "MySQL"
+          ]
+        }
+      ]
+    }
+  ]
+}
