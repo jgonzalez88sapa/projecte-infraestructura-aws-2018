@@ -61,17 +61,17 @@ Ja tenim tot lo necessari per a que funcionin els scripts.
 Primer de tot tenim que tenir el fitxer PEM. Descarreguem el programa Putty i PuttyGen d’aquest enllaç.
 
 Obrim PuttyGen i carreguem el fitxer PEM a Load:  
-![PuttyGen1](https://raw.githubusercontent.com/jgonzalez88sapa/projecte-infraestructura-aws-2018/master/img/1.png)
+![PuttyGen1](https://raw.githubusercontent.com/jgonzalez88sapa/projecte-infraestructura-aws-2018/master/img/1.PNG)
 
 Un cop carregat, li donem al boto Save private key:  
-![PuttyGen2](https://raw.githubusercontent.com/jgonzalez88sapa/projecte-infraestructura-aws-2018/master/img/2.png)
+![PuttyGen2](https://raw.githubusercontent.com/jgonzalez88sapa/projecte-infraestructura-aws-2018/master/img/2.PNG)
 
 Això ens genera un fitxer PPK que tenim que guardar.  
 Ara obrim Putty i introduïm la direcció IP o DNS de la instancia a la que ens volem connectar per SSH:  
-![Putty1](https://raw.githubusercontent.com/jgonzalez88sapa/projecte-infraestructura-aws-2018/master/img/3.png) 
+![Putty1](https://raw.githubusercontent.com/jgonzalez88sapa/projecte-infraestructura-aws-2018/master/img/3.PNG) 
 
-I anem a Connection > SSH > Auth i introduïm la ruta del fitxer PPK que em generat anteriorment i ja ens hi podem connectar.
-![Putty2](https://raw.githubusercontent.com/jgonzalez88sapa/projecte-infraestructura-aws-2018/master/img/4.png)  
+I anem a Connection > SSH > Auth i introduïm la ruta del fitxer PPK que em generat anteriorment i ja ens hi podem connectar.  
+![Putty2](https://raw.githubusercontent.com/jgonzalez88sapa/projecte-infraestructura-aws-2018/master/img/4.PNG)  
 
 ## Linux
 
