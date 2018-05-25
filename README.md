@@ -54,3 +54,33 @@ Per últim tenim que instal·lar la llibreria Boto 3 amb la següent comanda:
 
 Ja tenim tot lo necessari per a que funcionin els scripts.  
   
+### Com connectar-se a una instancia EC2 a la que tenim accés per SSH.
+
+## Windows
+
+Primer de tot tenim que tenir el fitxer PEM. Descarreguem el programa Putty i PuttyGen d’aquest enllaç.
+
+Obrim PuttyGen i carreguem el fitxer PEM a Load:  
+![PuttyGen1](https://raw.githubusercontent.com/jgonzalez88sapa/projecte-infraestructura-aws-2018/master/img/1.png)
+
+Un cop carregat, li donem al boto Save private key:  
+![PuttyGen2](https://raw.githubusercontent.com/jgonzalez88sapa/projecte-infraestructura-aws-2018/master/img/2.png)
+
+Això ens genera un fitxer PPK que tenim que guardar.  
+Ara obrim Putty i introduïm la direcció IP o DNS de la instancia a la que ens volem connectar per SSH:  
+![Putty1](https://raw.githubusercontent.com/jgonzalez88sapa/projecte-infraestructura-aws-2018/master/img/3.png) 
+
+I anem a Connection > SSH > Auth i introduïm la ruta del fitxer PPK que em generat anteriorment i ja ens hi podem connectar.
+![Putty2](https://raw.githubusercontent.com/jgonzalez88sapa/projecte-infraestructura-aws-2018/master/img/4.png)  
+
+## Linux
+
+Obra un terminal i localitza a on esta el fitxer PEM i ves a la seva carpeta.
+
+Canvia els permisos amb aquesta comanda:
+
+> sudo chmod 400 file.pem
+
+Ara ja pots connectar-te per SSH a la instancia amb el nom d’usuari (que depèn de la AMI de la instancia) i la seva adreça IP o DNS:
+
+> sudo ssh -i file.pem ubuntu@41.258.69.14
