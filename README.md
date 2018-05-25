@@ -54,12 +54,3 @@ Per últim tenim que instal·lar la llibreria Boto 3 amb la següent comanda:
 
 Ja tenim tot lo necessari per a que funcionin els scripts.  
   
-  
-  
-  ```mermaid
-graph LR
-A[Square Rect] -- Link text --> B((Circle))
-A --> C(Round Rect)
-B --> D{Rhombus}
-C --> D
-```
